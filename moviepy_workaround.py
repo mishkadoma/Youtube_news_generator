@@ -7,8 +7,11 @@ from moviepy.editor import AudioFileClip
 
 # my_video = VideoFileClip("/home/mishkadoma/Desktop/test_sample.ts")
 my_video = VideoFileClip("/home/mishkadoma/Desktop/test_sample_2.mp4")
-image_clip = ImageClip("frame.jpeg")
+image_clip_1 = ImageClip("planet.jpeg")
+image_clip_2 = ImageClip("ocean.jpeg")
+image_clip_3 = ImageClip("mountains.jpeg")
 background_music = AudioFileClip("Ticker.mp3")
+background_music = background_music.set_end(45)
 
 
 # TextClip template
@@ -37,6 +40,7 @@ clip3 = TextClip("It'll be awesome one day",
                  color="Yellow",
                  size=(1920, 1080))
 clip1_music = clip1.set_audio(background_music)
+
 
 
 
@@ -80,6 +84,14 @@ clip3.duration = 5
 # final_clip = concatenate_videoclips([clip1, clip2, clip3])
 # final_clip.write_videofile("final_clip.mp4", fps=25)
 
-alt_clip = CompositeVideoClip([clip1_music, image_clip], size=(1920, 1080))
-alt_clip.duration = 15
-alt_clip.write_videofile("image_clip.mp4", fps=25)
+alt_clip_1 = CompositeVideoClip([image_clip_1, clip1_music], size=(1920, 1080))
+alt_clip_1.duration = 15
+alt_clip_2 = CompositeVideoClip([image_clip_2, clip2], size=(1920, 1080))
+alt_clip_2.duration = 15
+alt_clip_3 = CompositeVideoClip([image_clip_3, clip3], size=(1920, 1080))
+alt_clip_3.duration = 15
+
+# alt_clip.write_videofile("image_clip.mp4", fps=25)
+# final_clip = concatenate_videoclips([alt_clip_1, alt_clip_2, alt_clip_3])
+final_clip = concatenate_videoclips([alt_clip_1, alt_clip_2, alt_clip_3])
+final_clip.write_videofile("final_clip.mp4", fps=25)
