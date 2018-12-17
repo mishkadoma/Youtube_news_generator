@@ -1,29 +1,43 @@
 from moviepy.editor import VideoFileClip
 from moviepy.editor import TextClip
 from moviepy.editor import concatenate_videoclips
+from moviepy.editor import CompositeVideoClip
+from moviepy.editor import ImageClip
+from moviepy.editor import AudioFileClip
 
 # my_video = VideoFileClip("/home/mishkadoma/Desktop/test_sample.ts")
 my_video = VideoFileClip("/home/mishkadoma/Desktop/test_sample_2.mp4")
+image_clip = ImageClip("frame.jpeg")
+background_music = AudioFileClip("Ticker.mp3")
+
+
+# TextClip template
+# clip = TextClip("Next paragraph",
+#                  font="Tahoma",
+#                  fontsize=350,
+#                  color="gray",
+#                  size=(1920, 1080),
+#                  bg_color="red")
+
 
 clip1 = TextClip("Sample text",
                  font='Courier',
                  fontsize=150,
                  color="white",
-                 size=(1920, 1080),
-                 bg_color="blue")
+                 size=(1920, 1080))
 
 clip2 = TextClip("Next paragraph",
                  font="Tahoma",
                  fontsize=350,
                  color="gray",
-                 size=(1920, 1080),
-                 bg_color="red")
+                 size=(1920, 1080))
 clip3 = TextClip("It'll be awesome one day",
                  font="Times New Roman",
                  fontsize=90,
                  color="Yellow",
-                 size=(1920, 1080),
-                 bg_color="Black")
+                 size=(1920, 1080))
+clip1_music = clip1.set_audio(background_music)
+
 
 
 def hours_in_video(video):
@@ -63,5 +77,9 @@ clip3.save_frame("text3.png")
 clip3.duration = 5
 # clip.write_videofile("text.mov", codec="libx264", fps=25)
 
-final_clip = concatenate_videoclips([clip1, clip2, clip3])
-final_clip.write_videofile("final_clip.mp4", fps=25)
+# final_clip = concatenate_videoclips([clip1, clip2, clip3])
+# final_clip.write_videofile("final_clip.mp4", fps=25)
+
+alt_clip = CompositeVideoClip([clip1_music, image_clip], size=(1920, 1080))
+alt_clip.duration = 15
+alt_clip.write_videofile("image_clip.mp4", fps=25)
